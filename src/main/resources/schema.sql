@@ -9,5 +9,5 @@ CREATE TABLE income_categories
 CREATE TABLE expense_categories
 (
     id   SERIAL PRIMARY KEY,
-    name VARCHAR(15)
+    name VARCHAR(25)
 );
