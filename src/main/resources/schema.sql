@@ -18,3 +18,14 @@ CREATE TABLE accounts
     id   SERIAL PRIMARY KEY,
     name VARCHAR
 );
+
+--
+CREATE TABLE expenses
+(
+    id                  SERIAL,
+    date                DATE,
+    amount              DOUBLE PRECISION,
+    expense_category_id INT REFERENCES expense_categories (id),
+    account_id          INT REFERENCES accounts (id),
+    comment             TEXT
+);
