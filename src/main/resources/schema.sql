@@ -11,3 +11,10 @@ CREATE TABLE expense_categories
     id   SERIAL PRIMARY KEY,
     name VARCHAR(25)
 );
+
+--счета для списание денег
+CREATE TABLE accounts
+(
+    id   SERIAL PRIMARY KEY,
+    name VARCHAR
+);
