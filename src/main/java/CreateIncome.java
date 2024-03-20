@@ -1,4 +1,6 @@
-package model;
+import model.Account;
+import model.Income;
+import model.IncomeCategory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
