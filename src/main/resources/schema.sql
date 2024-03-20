@@ -19,7 +19,7 @@ CREATE TABLE accounts
     name VARCHAR
 );
 
---
+--таблица, хранящая в себе записи о расходах
 CREATE TABLE expenses
 (
     id                  SERIAL,
