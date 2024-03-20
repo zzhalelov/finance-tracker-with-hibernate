@@ -39,4 +39,16 @@ CREATE TABLE incomes
     income_category_id INT REFERENCES income_categories (id),
     account_id         INT REFERENCES accounts (id),
     comment            TEXT
-)
+);
+
+--таблица, хранящая в себе записи о переводах между счетами
+CREATE TABLE transfers
+(
+    id                     SERIAL,
+    date                   DATE,
+    amount                 DOUBLE PRECISION,
+    fee                    DOUBLE PRECISION,
+    source_account_id      INT REFERENCES accounts (id),
+    destination_account_id INT REFERENCES accounts (id),
+    comment                TEXT
+);
