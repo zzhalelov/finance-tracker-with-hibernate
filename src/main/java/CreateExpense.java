@@ -1,3 +1,5 @@
+import model.Account;
+import model.Expense;
 import model.ExpenseCategory;
 
 import javax.persistence.EntityManager;
@@ -18,6 +20,27 @@ public class CreateExpense {
         printAllCategories();
         int categoryId = getInt("Выберите ID категории расходов:");
         ExpenseCategory expenseCategory = manager.find(ExpenseCategory.class, categoryId);
+        printAllAccounts();
+        int accountId = getInt("Выберите ID счета:");
+        Account account = manager.find(Account.class, accountId);
+        String comment = getComment("Введите описание транзакции:");
+
+        Expense expense = Expense.builder()
+                .date(date)
+                .amount(amount)
+                .expenseCategory(categoryId)
+                .account(accountId)
+                .comment(comment)
+                .build();
+        try {
+            manager.getTransaction().begin();
+            manager.persist(expense);
+            manager.getTransaction().commit();
+            System.out.println("Транзакция записана");
+        } catch (Exception e) {
+            manager.getTransaction().rollback();
+            System.out.println("Ошибка" + e.getMessage());
+        }
     }
 
     static LocalDate getDate(String message) {
@@ -35,6 +58,11 @@ public class CreateExpense {
         return Integer.parseInt(scanner.nextLine());
     }
 
+    static String getComment(String message) {
+        System.out.println(message);
+        return scanner.nextLine();
+    }
+
     static void printAllCategories() {
         System.out.println("----------------------");
         System.out.println("КАТЕГОРИИ:");
@@ -50,5 +78,11 @@ public class CreateExpense {
         System.out.println("10. Одежда");
         System.out.println("11. Фин.обязательства");
         System.out.println("12. Прочие расходы");
+    }
+
+    static void printAllAccounts() {
+        System.out.println("----------------------");
+        System.out.println("1. Наличные");
+        System.out.println("2. Банковская карта");
     }
 }
