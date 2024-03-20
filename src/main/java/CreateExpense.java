@@ -19,10 +19,10 @@ public class CreateExpense {
         double amount = getDouble("Введите сумму расхода:");
         printAllCategories();
         int categoryId = getInt("Выберите ID категории расходов:");
-        ExpenseCategory expenseCategory = manager.find(ExpenseCategory.class, categoryId);
+        manager.find(ExpenseCategory.class, categoryId);
         printAllAccounts();
         int accountId = getInt("Выберите ID счета:");
-        Account account = manager.find(Account.class, accountId);
+        manager.find(Account.class, accountId);
         String comment = getComment("Введите описание транзакции:");
 
         Expense expense = Expense.builder()

@@ -29,3 +29,14 @@ CREATE TABLE expenses
     account_id          INT REFERENCES accounts (id),
     comment             TEXT
 );
+
+--таблица, хранящая в себе записи о доходах
+CREATE TABLE incomes
+(
+    id                 SERIAL,
+    date               DATE,
+    amount             DOUBLE PRECISION,
+    income_category_id INT REFERENCES income_categories (id),
+    account_id         INT REFERENCES accounts (id),
+    comment            TEXT
+)
