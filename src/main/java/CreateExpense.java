@@ -17,12 +17,15 @@ public class CreateExpense {
 
         LocalDate date = getDate("Введите дату в формате yyyy-mm-dd:");
         double amount = getDouble("Введите сумму расхода:");
+
         printAllCategories();
         int categoryId = getInt("Выберите ID категории расходов:");
         manager.find(ExpenseCategory.class, categoryId);
+
         printAllAccounts();
         int accountId = getInt("Выберите ID счета:");
         manager.find(Account.class, accountId);
+
         String comment = getComment("Введите описание транзакции:");
 
         Expense expense = Expense.builder()
