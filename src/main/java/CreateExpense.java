@@ -1,3 +1,5 @@
+import model.ExpenseCategory;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -11,10 +13,11 @@ public class CreateExpense {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("default");
         EntityManager manager = factory.createEntityManager();
 
-        LocalDate date = getDate("Введите дату:");
+        LocalDate date = getDate("Введите дату в формате yyyy-mm-dd:");
         double amount = getDouble("Введите сумму расхода:");
         printAllCategories();
-
+        int categoryId = getInt("Выберите ID категории расходов:");
+        ExpenseCategory expenseCategory = manager.find(ExpenseCategory.class, categoryId);
     }
 
     static LocalDate getDate(String message) {
@@ -25,6 +28,11 @@ public class CreateExpense {
     static double getDouble(String message) {
         System.out.println(message);
         return Double.parseDouble(scanner.nextLine());
+    }
+
+    static int getInt(String message) {
+        System.out.println(message);
+        return Integer.parseInt(scanner.nextLine());
     }
 
     static void printAllCategories() {
