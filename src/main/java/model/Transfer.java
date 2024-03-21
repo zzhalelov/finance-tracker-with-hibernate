@@ -19,7 +19,6 @@ public class Transfer {
     private int id;
     private LocalDate date;
     private double amount;
-    private double fee;
 
     @Column(name = "source_account_id")
     private int sourceAccountId;
