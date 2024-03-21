@@ -47,7 +47,6 @@ CREATE TABLE transfers
     id                     SERIAL,
     date                   DATE,
     amount                 DOUBLE PRECISION,
-    fee                    DOUBLE PRECISION,
     source_account_id      INT REFERENCES accounts (id),
     destination_account_id INT REFERENCES accounts (id),
     comment                TEXT
