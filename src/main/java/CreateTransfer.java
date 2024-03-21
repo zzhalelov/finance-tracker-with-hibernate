@@ -1,5 +1,4 @@
 import model.Account;
-import model.Expense;
 import model.Transfer;
 
 import javax.persistence.EntityManager;
@@ -16,8 +15,7 @@ public class CreateTransfer {
         EntityManager manager = factory.createEntityManager();
 
         LocalDate date = getDate("Введите дату в формате yyyy-mm-dd:");
-        double amount = getDouble("Введите сумму дохода:");
-        double fee = getDouble("Введите сумму комиссии за перевод:");
+        double amount = getDouble("Введите сумму перевода:");
 
         printAllAccounts();
         int sourceAccountId = getInt("С какого счета переводите деньги:");
@@ -30,12 +28,19 @@ public class CreateTransfer {
         Transfer transfer = Transfer.builder()
                 .date(date)
                 .amount(amount)
-                .fee(fee)
                 .sourceAccountId(sourceAccountId)
                 .destinationAccountId(destinationAccountId)
                 .comment(comment)
                 .build();
-
+        try {
+            manager.getTransaction().begin();
+            manager.persist(transfer);
+            manager.getTransaction().commit();
+            System.out.println("Перевод совершен!");
+        } catch (Exception e) {
+            manager.getTransaction().rollback();
+            System.out.println("Ошибка " + e.getMessage());
+        }
     }
 
     static LocalDate getDate(String message) {
