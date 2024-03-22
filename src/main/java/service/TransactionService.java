@@ -48,12 +48,18 @@ public class TransactionService {
         }
     }
 
-    //3. Вывести сумму доходов и расходов за промежуток времени, указанный пользователем
+    //3. Вывести сумму расходов за промежуток времени, указанный пользователем
     public void sumAllBetweenDate() {
         TransactionDao dao = new TransactionDao();
         System.out.println("Введите начальную и конечную дату для отбора: ");
         LocalDate startDate = LocalDate.parse(scanner.nextLine());
         LocalDate endDate = LocalDate.parse(scanner.nextLine());
-        System.out.println(dao.sumExpensesBetweenDate(startDate, endDate));
+        System.out.println("---------------------------------------");
+        System.out.println("Расходов всего за указанный период: " + dao.sumExpensesBetweenDate(startDate, endDate));
+        System.out.println("---------------------------------------");
+        List<Object[]> resultList = dao.sumAllExpensesByCategoryBetweenDate(startDate, endDate);
+        for (Object[] element : resultList) {
+            System.out.println("Категория: " + element[0] + ", Сумма: " + element[1]);
+        }
     }
 }
