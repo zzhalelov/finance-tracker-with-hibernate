@@ -37,7 +37,15 @@ public class TransactionService {
     public void sumAll() {
         TransactionDao dao = new TransactionDao();
         System.out.println("Доходов всего: " + dao.sumAllIncomes());
+        System.out.println("---------------------------------------");
         System.out.println("Расходов всего: " + dao.sumAllExpenses());
+        System.out.println("---------------------------------------");
+        System.out.println("Расшифровка по таблице расходов:");
+        List<Object[]> resultList = dao.sumAllExpensesByCategory();
+        for (Object[] element :
+                resultList) {
+            System.out.println("Категория: " + element[0] + ", Сумма: " + element[1]);
+        }
     }
 
     //3. Вывести сумму доходов и расходов за промежуток времени, указанный пользователем
