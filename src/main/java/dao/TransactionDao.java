@@ -23,13 +23,21 @@ public class TransactionDao {
         return manager.createQuery("SELECT i FROM Income i", Income.class).getResultList();
     }
 
-    //2. Вывести сумму по всем доходам и расходам
+    //2. Вывести расшифровку по всем доходам и расходам
     public Double sumAllIncomes() {
         return manager.createQuery("SELECT SUM (amount) FROM Income i", Double.class).getSingleResult();
     }
 
     public Double sumAllExpenses() {
         return manager.createQuery("SELECT SUM (amount) FROM Expense e", Double.class).getSingleResult();
+    }
+
+    public List<Object[]> sumAllExpensesByCategory() {
+        return manager.createQuery(
+                "SELECT ec.name, SUM(e.amount) " +
+                        "FROM Expense e " +
+                        "JOIN ExpenseCategory ec ON e.expenseCategory = ec.id " +
+                        "GROUP BY ec.name", Object[].class).getResultList();
     }
 
     //3. Вывести сумму доходов и расходов за промежуток времени, указанный пользователем
