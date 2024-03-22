@@ -40,11 +40,23 @@ public class TransactionDao {
                         "GROUP BY ec.name", Object[].class).getResultList();
     }
 
-    //3. Вывести сумму доходов и расходов за промежуток времени, указанный пользователем
+    //3. Вывести сумму расходов за промежуток времени, указанный пользователем
     public Double sumExpensesBetweenDate(LocalDate startDate, LocalDate endDate) {
         TypedQuery<Double> query = manager.createQuery("SELECT SUM(e.amount) FROM Expense e WHERE e.date BETWEEN :startDate AND :endDate", Double.class);
         query.setParameter("startDate", startDate);
         query.setParameter("endDate", endDate);
         return query.getSingleResult();
+    }
+
+    public List<Object[]> sumAllExpensesByCategoryBetweenDate(LocalDate startDate, LocalDate endDate) {
+        return manager.createQuery(
+                        "SELECT ec.name, SUM(e.amount) " +
+                                "FROM Expense e " +
+                                "JOIN ExpenseCategory ec ON e.expenseCategory = ec.id " +
+                                "WHERE e.date BETWEEN :startDate AND :endDate " +
+                                "GROUP BY ec.name", Object[].class)
+                .setParameter("startDate", startDate)
+                .setParameter("endDate", endDate)
+                .getResultList();
     }
 }
